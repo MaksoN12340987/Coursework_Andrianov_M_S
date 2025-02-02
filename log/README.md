@@ -1,0 +1,1 @@
+Directory for collecting logs from the main modules of the project
