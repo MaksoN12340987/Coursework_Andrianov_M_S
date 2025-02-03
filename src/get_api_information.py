@@ -26,6 +26,7 @@ def conversion_from_usd_eur_in_rub(
     Также имеет 1 доп параметр:зне
     - url ссылка на апи"""
     data = conversion_json_to_object("user_settings.json")
+    result = 0.00
 
     try:
         load_dotenv()
@@ -34,12 +35,16 @@ def conversion_from_usd_eur_in_rub(
             "function": "TIME_SERIES_INTRADAY",
             "symbol": f"{data["user_stocks"][user_stocks]}",
             "interval": "60min",
-            "apikey": api_key,
+            "outputsize" : "full",
+            "apikey" : api_key,
         }
         temp = requests.get(url, params=payload)
 
         logger_get_api.info(f"OUTPUT DATA:\n{temp.json()}\n")
-        return temp.json()
+        keys_fime_series = list(temp.json()["Time Series (60min)"])
+        
+        result = temp.json()["Time Series (60min)"][keys_fime_series[0]]["4. close"]
+        return result
 
     except Exception:
         logger_get_api.warning(f"ERROR:\n{temp.json()}\n")
