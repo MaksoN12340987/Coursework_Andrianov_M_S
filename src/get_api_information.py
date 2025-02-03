@@ -26,7 +26,11 @@ def conversion_from_usd_eur_in_rub(
     Также имеет 1 доп параметр:зне
     - url ссылка на апи"""
     data = conversion_json_to_object("user_settings.json")
-    payload = {"function": "TIME_SERIES_INTRADAY", "symbol" : f"{data["user_stocks"][user_stocks]}", "interval" : "60min"}
+    payload = {
+        "function": "TIME_SERIES_INTRADAY",
+        "symbol": f"{data["user_stocks"][user_stocks]}",
+        "interval": "60min",
+    }
 
     try:
         load_dotenv()
