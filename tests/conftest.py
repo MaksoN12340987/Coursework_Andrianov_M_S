@@ -717,3 +717,6 @@ def return_api_defolt_setings() -> str:
     }
 
 
+@pytest.fixture
+def return_api_url_uncorrect() -> str:
+    return {"error": "url uncorrect"}
