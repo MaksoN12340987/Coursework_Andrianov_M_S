@@ -3,7 +3,7 @@ import os
 
 import requests
 import logging
-from Home_work_Skypro.src.utils import conversion_json_to_object
+from utils import conversion_json_to_object
 from dotenv import load_dotenv
 
 
@@ -19,28 +19,31 @@ logger_get_api.setLevel(logging.INFO)
 
 def conversion_from_usd_eur_in_rub(
     user_stocks: int = 0,
-    url: str = "https://api.apilayer.com/exchangerates_data/convert",
+    url: str = "https://www.alphavantage.co/query",
 ) -> float:
     """Принимает на вход наименование валюты типа: "RUB"
     Возвращает число типа "float" - стоимость акций
     Также имеет 1 доп параметр:зне
     - url ссылка на апи"""
     data = conversion_json_to_object("user_settings.json")
-    payload = {
-        "function": "TIME_SERIES_INTRADAY",
-        "symbol": f"{data["user_stocks"][user_stocks]}",
-        "interval": "60min",
-    }
 
     try:
         load_dotenv()
         api_key = os.getenv("API_KEY")
-        headers = {"apikey": api_key}
-        temp = requests.get(url, headers=headers, params=payload)
+        payload = {
+            "function": "TIME_SERIES_INTRADAY",
+            "symbol": f"{data["user_stocks"][user_stocks]}",
+            "interval": "60min",
+            "apikey": api_key,
+        }
+        temp = requests.get(url, params=payload)
 
-        logger_get_api.info(f"OUTPUT DATA:\n{temp.json()["result"]}\n")
-        return float(temp.json()["result"])
+        logger_get_api.info(f"OUTPUT DATA:\n{temp.json()}\n")
+        return temp.json()
 
     except Exception:
         logger_get_api.warning(f"ERROR:\n{temp.json()}\n")
         raise ValueError("Error, invalid data or not correct url")
+
+
+print(conversion_from_usd_eur_in_rub())
