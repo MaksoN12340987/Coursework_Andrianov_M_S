@@ -1,6 +1,3 @@
-
-
-
 # Execution of the main block
-if __name__ == 'main':
+if __name__ == "main":
     pass

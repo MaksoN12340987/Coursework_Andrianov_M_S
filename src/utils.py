@@ -1,4 +1,5 @@
 # Module of additional functions required for the operation of the "Home" page
+import json
 import logging
 
 import pandas as pd
@@ -24,3 +25,18 @@ def conversion_xlsx_to_object(file_name=""):
     except Exception:
         logger_utils.warning("Exceptional error, return []")
         return []
+
+
+def conversion_json_to_object(file_name="") -> list:
+    """Принимает на вход путь до файла .json, который читает и
+    возвращает список"""
+    logger_utils.info("Get started conversion_json_to_object")
+    try:
+        with open(file_name, "rb") as f:
+            data_bank_operation = json.load(f)
+
+    except Exception:
+        logger_utils.warning("Exceptional error, return []")
+        data_bank_operation = []
+
+    return data_bank_operation
