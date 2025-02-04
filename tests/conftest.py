@@ -2,7 +2,7 @@ import pytest
 
 
 @pytest.fixture
-def return_api_defolt_setings() -> str:
+def return_api_stock_price_from_api_defolt_setings() -> dict:
     return {
         "Meta Data": {
             "1. Information": "Intraday (60min) open, high, low, close prices and volume",
@@ -17,7 +17,7 @@ def return_api_defolt_setings() -> str:
                 "1. open": "234.9200",
                 "2. high": "235.0700",
                 "3. low": "233.9100",
-                "4. close": "233.9140",
+                "4. close": "228.8500",
                 "5. volume": "75073",
             },
             "2025-01-31 18:00:00": {
@@ -718,5 +718,34 @@ def return_api_defolt_setings() -> str:
 
 
 @pytest.fixture
-def return_api_url_uncorrect() -> str:
+def return_api_url_uncorrect() -> dict:
     return {"error": "url uncorrect"}
+
+
+@pytest.fixture
+def return_api_eur_rub_usd() -> dict:
+    return {
+        "base": "USD",
+        "date": "2025-02-04",
+        "rates": {"RUB": 99.616325},
+        "success": "true",
+        "timestamp": 1738663204,
+    }
+
+
+{"stock": "AAPL", "price": "228.8500"}
+{"currency": "USD", "price": "99.616325"}
+
+{
+    "greeting": "Доброе утро",
+    "cards": [],
+    "top_transactions": [],
+    "currency_rates": [{"currency": "USD", "price": "99.616325"}, {"currency": "EUR", "price": "99.616325"}],
+    "stock_prices": [
+        {"stock": "AAPL", "price": "228.8500"},
+        {"stock": "AMZN", "price": "228.8500"},
+        {"stock": "GOOGL", "price": "228.8500"},
+        {"stock": "MSFT", "price": "228.8500"},
+        {"stock": "TSLA", "price": "228.8500"},
+    ],
+}

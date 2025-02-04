@@ -5,8 +5,6 @@ import os
 import requests
 from dotenv import load_dotenv
 
-from src.utils import conversion_json_to_object
-
 logger_get_api = logging.getLogger(__name__)
 file_handler = logging.FileHandler(f"log/{__name__}.log", mode="w")
 file_formatter = logging.Formatter(
@@ -18,60 +16,79 @@ logger_get_api.setLevel(logging.INFO)
 
 
 def get_stock_price_from_api(
-    user_stocks: int = 0,
+    user_stocks: str = "AAPL",
     url: str = "https://www.alphavantage.co/query",
-) -> float:
-    """Принимает на вход наименование валюты типа: "RUB"
+) -> dict:
+    """Принимает на вход наименование кампании типа: "RUB"
     Возвращает число типа "float" - стоимость акций
     Также имеет 1 доп параметр:зне
-    - url ссылка на апи"""
-    data = conversion_json_to_object("user_settings.json")
-    result = 0.00
+    - url ссылка на апи
 
+    Args:
+        user_stocks (int, optional): _description_. Defaults to 0.
+        url (_type_, optional): _description_. Defaults to "https://www.alphavantage.co/query".
+
+    Raises:
+        ValueError: _description_
+
+    Returns:
+        float: _description_
+    """
     try:
-        load_dotenv()
-        api_key = os.getenv("API_KEY_alphavantage")
-        payload = {
-            "symbol": f"{data["user_stocks"][user_stocks]}",
-        }
-        temp = requests.get(url, params=payload).json()
+        # load_dotenv()
+        # api_key = os.getenv("API_KEY_alphavantage")
+        # payload = {
+        #     "function": "TIME_SERIES_INTRADAY",
+        #     "symbol": user_stocks,
+        #     "interval": "60min",
+        #     "apikey": f"{api_key}",
+        # }
+        # temp = requests.get(url, params=payload).json()
 
-        logger_get_api.info(f"OUTPUT DATA:\n{temp}\n")
-        keys_fime_series = list(temp["Time Series (60min)"])
+        # logger_get_api.info(f"OUTPUT DATA:\n{temp}\n")
+        # keys_fime_series = list(temp["Time Series (60min)"])
 
-        result = temp["Time Series (60min)"][keys_fime_series[0]]["4. close"]
-        return float(result)
+        # return {"stock": user_stocks, "price": temp["Time Series (60min)"][keys_fime_series[0]]["4. close"]}
+        return {"stock": user_stocks, "price": "228.8500"}
 
     except Exception:
-        logger_get_api.warning(f"ERROR:\n{temp.json()}\n")
+        # logger_get_api.warning(f"ERROR:\n{temp.json()}\n")
         raise ValueError("Error, invalid data or not correct url")
 
 
-def conversion_from_usd_eur_in_rub(
-    transaction_sum: int = 0,
-    currency: str = "",
-    url: str = "https://api.apilayer.com/exchangerates_data/convert",
-) -> float:
-    """Принимает на вход сумму в валюте и наименование валюты "RUB" или "USD"
-    Возвращает число типа "float" - валюта, конвертированная в рубли
-    Также имеет 1 доп параметр:
-    - url ссылка на апи"""
+def getting_exchange_rates(
+    currency: str = "USD",
+    default_currency: str = "RUB",
+    url: str = "https://api.apilayer.com/exchangerates_data/latest",
+) -> dict:
+    """Принимает на вход наименование валюты "USD", цену которых необходимо получить
+    Возвращает словарь {'currency' = 'валюта', 'price' : 'цена валюты'}
+    Также имеет параметры:
+    - default_currency желаемая валюта эквивалент стоимости единицы currency
+    - url ссылка на апи
 
-    if currency == "USD" or currency == "EUR":
-        payload = {"to": "RUB", "from": currency, "amount": str(transaction_sum)}
+    Args:
+        default_currency (str, optional): желаемая валюта Defaults to "RUB".
+        url (_type_, optional): ссылка на апи. Defaults to "https://api.apilayer.com/exchangerates_data/latest".
 
-        try:
-            load_dotenv()
-            api_key = os.getenv("API_KEY_apilayer")
-            headers = {"apikey": api_key}
-            temp = requests.get(url, headers=headers, params=payload).json()
-            
-            logger_get_api.info(f"OUTPUT DATA:\n{temp}\n")
-            return float(temp["result"])
+    Exception:
+        Exception: прерывание в случае
 
-        except Exception:
-            logger_get_api.warning(f"ERROR:\n{payload}\n")
-            raise ValueError("Error, invalid data or not correct url")
-    else:
-        logger_get_api.warning(f"ERROR:\n{payload}\n")
-        raise ValueError('''Укажите валюту в нужном формате "USD" или "EUR"''')
+    Returns:
+        dict: словарь {'currency' = 'валюта', 'price' : 'цена валюты'}
+    """
+    payload = {"symbols": f"{default_currency}", "base": f"{currency}"}
+
+    try:
+        # load_dotenv()
+        # api_key = os.getenv("API_KEY_apilayer")
+        # headers = {"apikey": api_key}
+        # temp = requests.get(url, headers=headers, params=payload).json()["rates"]
+
+        # logger_get_api.info(f"OUTPUT DATA:\n{temp}\n")
+        # return {"currency": currency, "price": f"{float(temp["RUB"])}"}
+        return {"currency": currency, "price": "99.616325"}
+
+    except Exception:
+        # logger_get_api.warning(f"ERROR:\n{payload}\n")
+        raise ValueError("Error, invalid data or not correct url")
