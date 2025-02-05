@@ -4,7 +4,7 @@ import logging
 
 import pandas as pd
 
-from src.get_api_information import get_stock_price_from_api, getting_exchange_rates
+from get_api_information import get_stock_price_from_api, getting_exchange_rates
 
 logger_utils = logging.getLogger(__name__)
 file_handler = logging.FileHandler(f"log/{__name__}.log", mode="a")
@@ -16,7 +16,7 @@ logger_utils.addHandler(file_handler)
 logger_utils.setLevel(logging.INFO)
 
 
-def conversion_xlsx_to_object(file_name: str = "") -> list:
+def conversion_xlsx_to_object(file_name: str = "data/operations.xlsx") -> list:
     """Принимает на вход путь до файла xlsx, который читает и
     возвращает объект Python"""
     logger_utils.info("Get started conversion_json_to_object")
