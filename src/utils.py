@@ -8,7 +8,7 @@ from src.card_transactions import make_a_card_list, make_a_top_transaction, arra
 from src.get_api_information import get_stock_price_from_api, getting_exchange_rates
 
 logger_utils = logging.getLogger(__name__)
-file_handler = logging.FileHandler(f"log/{__name__}.log", mode="a")
+file_handler = logging.FileHandler(f"log/{__name__}.log", mode="a", encoding="UTF8")
 file_formatter = logging.Formatter(
     "\n%(asctime)s %(levelname)s %(name)s %(funcName)s %(lineno)d: \n%(message)s", datefmt="%H:%M:%S %d-%m-%Y"
 )
@@ -46,15 +46,18 @@ def conversion_json_to_object(file_name: str = "") -> list:
 
 
 def user_greeting(time_now: str = "") -> str:
-    time = 1000000 + int(time_now.replace(":", ""))
-    if time >= 1050000 and time < 1120000:
-        result = "Доброе утро"
-    elif time >= 1120000 and time < 1180000:
-        result = "Добрый день"
-    elif time >= 1180000 and time < 1220000:
-        result = "Добрый вечер"
-    else:
-        result = "Доброй ночи"
+    try:
+        time = 1000000 + int(time_now.replace(":", ""))
+        if time >= 1050000 and time < 1120000:
+            result = "Доброе утро"
+        elif time >= 1120000 and time < 1180000:
+            result = "Добрый день"
+        elif time >= 1180000 and time < 1220000:
+            result = "Добрый вечер"
+        else:
+            result = "Доброй ночи"
+    except Exception:
+        result = "Доброго времени суток"
     return result
 
 
@@ -94,3 +97,6 @@ def reply_to_main_page(time_now=""):
 
     json_response["stock_prices"] = temp
     return [json_response]
+
+
+# print(conversion_xlsx_to_object()[:10])

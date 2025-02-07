@@ -1,11 +1,23 @@
 # This is where the functions that process operations on the card are located.
+import logging
+
+logger_card_trans = logging.getLogger("card_transactions")
+file_handler = logging.FileHandler("log/card_transactions.log", mode="a", encoding="UTF8")
+file_formatter = logging.Formatter(
+    "\n%(asctime)s %(levelname)s %(name)s %(funcName)s %(lineno)d: \n%(message)s", datefmt="%H:%M:%S %d-%m-%Y"
+)
+file_handler.setFormatter(file_formatter)
+logger_card_trans.addHandler(file_handler)
+logger_card_trans.setLevel(logging.INFO)
+
+
 def array_of_transactions_for_top_selection(array_of_operations: list[dict] = [{}]) -> list[dict]:
     result = []
     for i, value in enumerate(array_of_operations):
         try:
             result.append(
                 {
-                    "date": value["Дата платежа"],
+                    "date": str(value["Дата платежа"]),
                     "amount": value["Сумма операции"],
                     "category": str(value["Категория"]),
                     "description": str(value["Описание"]),
@@ -13,7 +25,7 @@ def array_of_transactions_for_top_selection(array_of_operations: list[dict] = [{
             )
         except Exception:
             pass
-
+    logger_card_trans.info(f"{result}")
     return result
 
 
