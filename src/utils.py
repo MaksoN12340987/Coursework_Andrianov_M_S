@@ -4,7 +4,8 @@ import logging
 
 import pandas as pd
 
-from get_api_information import get_stock_price_from_api, getting_exchange_rates
+from src.card_transactions import make_a_card_list, make_a_top_transaction, array_of_transactions_for_top_selection
+from src.get_api_information import get_stock_price_from_api, getting_exchange_rates
 
 logger_utils = logging.getLogger(__name__)
 file_handler = logging.FileHandler(f"log/{__name__}.log", mode="a")
@@ -46,7 +47,6 @@ def conversion_json_to_object(file_name: str = "") -> list:
 
 def user_greeting(time_now: str = "") -> str:
     time = 1000000 + int(time_now.replace(":", ""))
-    print(time)
     if time >= 1050000 and time < 1120000:
         result = "Доброе утро"
     elif time >= 1120000 and time < 1180000:
@@ -71,7 +71,15 @@ def reply_to_main_page(time_now=""):
     Returns:
         dict : сдоварь, подготовленный для конвертации в ответ json
     """
-    json_response = {"greeting": "", "cards": [], "top_transactions": [], "currency_rates": [], "stock_prices": []}
+    result_xlsx = conversion_xlsx_to_object()
+
+    json_response = {
+        "greeting": "",
+        "cards": [make_a_card_list(result_xlsx)],
+        "top_transactions": [make_a_top_transaction(array_of_transactions_for_top_selection(result_xlsx))],
+        "currency_rates": [],
+        "stock_prices": [],
+    }
     json_response["greeting"] = user_greeting(time_now[10:])
 
     temp = []
@@ -85,4 +93,4 @@ def reply_to_main_page(time_now=""):
         temp.append((get_stock_price_from_api(value)))
 
     json_response["stock_prices"] = temp
-    return json_response
+    return [json_response]
