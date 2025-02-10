@@ -4,8 +4,8 @@ import logging
 
 import pandas as pd
 
-from src.card_transactions import make_a_card_list, make_a_top_transaction, array_of_transactions_for_top_selection
-from src.get_api_information import get_stock_price_from_api, getting_exchange_rates
+# from src.card_transactions import make_a_card_list, make_a_top_transaction, array_of_transactions_for_top_selection
+# from src.get_api_information import get_stock_price_from_api, getting_exchange_rates
 
 logger_utils = logging.getLogger(__name__)
 file_handler = logging.FileHandler(f"log/{__name__}.log", mode="a", encoding="UTF8")
@@ -75,6 +75,7 @@ def reply_to_main_page(time_now=""):
         dict : сдоварь, подготовленный для конвертации в ответ json
     """
     result_xlsx = conversion_xlsx_to_object()
+    logger_utils.info(f"{result_xlsx}")
 
     json_response = {
         "greeting": "",

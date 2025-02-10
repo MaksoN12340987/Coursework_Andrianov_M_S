@@ -3,7 +3,7 @@ import logging
 import os
 
 import requests
-from dotenv import load_dotenv
+from dotenv import load_dotenv  # type: ignore
 
 logger_get_api = logging.getLogger(__name__)
 file_handler = logging.FileHandler(f"log/{__name__}.log", mode="w", encoding="UTF8")
@@ -35,24 +35,24 @@ def get_stock_price_from_api(
         float: _description_
     """
     try:
-        load_dotenv()
-        api_key = os.getenv("API_KEY_alphavantage")
-        payload = {
-            "function": "TIME_SERIES_INTRADAY",
-            "symbol": user_stocks,
-            "interval": "60min",
-            "apikey": f"{api_key}",
-        }
-        temp = requests.get(url, params=payload).json()
+        # load_dotenv()
+        # api_key = os.getenv("API_KEY_alphavantage")
+        # payload = {
+        #     "function": "TIME_SERIES_INTRADAY",
+        #     "symbol": user_stocks,
+        #     "interval": "60min",
+        #     "apikey": f"{api_key}",
+        # }
+        # temp = requests.get(url, params=payload).json()
 
-        logger_get_api.info(f"OUTPUT DATA:\n{temp}\n")
-        keys_fime_series = list(temp["Time Series (60min)"])
+        # logger_get_api.info(f"OUTPUT DATA:\n{temp}\n")
+        # keys_fime_series = list(temp["Time Series (60min)"])
 
-        return {"stock": user_stocks, "price": temp["Time Series (60min)"][keys_fime_series[0]]["4. close"]}
-        # return {"stock": user_stocks, "price": "228.8500"}
+        # return {"stock": user_stocks, "price": temp["Time Series (60min)"][keys_fime_series[0]]["4. close"]}
+        return {"stock": user_stocks, "price": "228.8500"}
 
     except Exception:
-        logger_get_api.warning(f"ERROR:\n{temp.json()}\n")
+        # logger_get_api.warning(f"ERROR:\n{temp.json()}\n")
         raise ValueError("Error, invalid data or not correct url")
 
 
@@ -80,15 +80,15 @@ def getting_exchange_rates(
     payload = {"symbols": f"{default_currency}", "base": f"{currency}"}
 
     try:
-        load_dotenv()
-        api_key = os.getenv("API_KEY_apilayer")
-        headers = {"apikey": api_key}
-        temp = requests.get(url, headers=headers, params=payload).json()["rates"]
+        # load_dotenv()
+        # api_key = os.getenv("API_KEY_apilayer")
+        # headers = {"apikey": api_key}
+        # temp = requests.get(url, headers=headers, params=payload).json()["rates"]
 
-        logger_get_api.info(f"OUTPUT DATA:\n{temp}\n")
-        return {"currency": currency, "price": f"{float(temp["RUB"])}"}
-        # return {"currency": currency, "price": "99.616325"}
+        # logger_get_api.info(f"OUTPUT DATA:\n{temp}\n")
+        # return {"currency": currency, "price": f"{float(temp["RUB"])}"}
+        return {"currency": currency, "price": "99.616325"}
 
     except Exception:
-        logger_get_api.warning(f"ERROR:\n{payload}\n")
+        # logger_get_api.warning(f"ERROR:\n{payload}\n")
         raise ValueError("Error, invalid data or not correct url")
