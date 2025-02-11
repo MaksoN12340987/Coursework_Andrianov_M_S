@@ -1,5 +1,5 @@
-from functools import wraps
 import json
+from functools import wraps
 
 
 def decorator_for_output_to_console_file(filename: str = "", error_mesage_type: str = "Crinical exeption"):
@@ -18,9 +18,13 @@ def decorator_for_output_to_console_file(filename: str = "", error_mesage_type: 
         def execution(*args):
             if filename != "":
                 resault = function(*args)
-                with open(filename, "w", encoding="UTF8") as file:
-                    json.dump(resault, file, indent=4).encode('UTF8')
-
+                print(f'''I output the result of the work to a file: "{filename}"''')
+                try:
+                    with open(filename, "w", encoding="UTF8") as file:
+                        json.dump(resault, file, indent=4, ensure_ascii=False)
+                except Exception:
+                    with open(filename, "w", encoding="UTF8") as file:
+                        file.write(f"{resault.to_dict("records")}")
             else:
                 print("Start " + f"{function}"[1:-23])
                 try:

@@ -1,9 +1,4 @@
 # Additional services module
-import re
-
-from utils import conversion_xlsx_to_object
-
-
 def favorable_categories_increased_cashback(
     bank_operations: list[dict] = [], reversed: bool = True, coll: int = 3
 ) -> list:

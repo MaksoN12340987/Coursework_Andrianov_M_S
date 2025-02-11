@@ -1,7 +1,15 @@
 import pytest
-from unittest.mock import patch
 
-from src.utils import conversion_json_to_object, conversion_xlsx_to_object, user_greeting
+from src.utils import dataframe_from_file, conversion_json_to_object, conversion_xlsx_to_object, user_greeting
+
+
+def test_ataframe_from_file_ok():
+    assert str(type(dataframe_from_file())) == "<class 'pandas.core.frame.DataFrame'>"
+
+
+def test_ataframe_from_file_exeption():
+    with pytest.raises(Exception):
+        assert dataframe_from_file("src/decoretor.py") == "Exceptional error"
 
 
 @pytest.mark.parametrize(

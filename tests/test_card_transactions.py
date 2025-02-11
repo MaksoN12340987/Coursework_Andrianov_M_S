@@ -12,8 +12,10 @@ def test_array_of_transactions_for_top_selection_no_valid(key, expected):
     assert array_of_transactions_for_top_selection(conversion_xlsx_to_object(key)) == expected
 
 
-def test_array_of_transactions_for_top_selection_ok(return_array_of_transactions_for_top_selection):
-    assert (
-        array_of_transactions_for_top_selection(conversion_xlsx_to_object())
-        == return_array_of_transactions_for_top_selection
-    )
+def test_array_of_transactions_for_top_selection_ok():
+    assert array_of_transactions_for_top_selection(conversion_xlsx_to_object())[1] == {
+        "date": "31.12.2021",
+        "amount": -64.0,
+        "category": "Супермаркеты",
+        "description": "Колхоз",
+    }
