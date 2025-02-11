@@ -1,0 +1,110 @@
+[
+    {
+        "greeting": "\u0414\u043e\u0431\u0440\u044b\u0439 \u0432\u0435\u0447\u0435\u0440",
+        "cards": [
+            [
+                {
+                    "last_digits": "7197",
+                    "total_spent": -2389912.73,
+                    "cashback": 23899.13
+                },
+                {
+                    "last_digits": "5091",
+                    "total_spent": -17367.5,
+                    "cashback": 173.68
+                },
+                {
+                    "last_digits": "4556",
+                    "total_spent": -1768837.24,
+                    "cashback": 17688.37
+                },
+                {
+                    "last_digits": "1112",
+                    "total_spent": -46207.08,
+                    "cashback": 462.07
+                },
+                {
+                    "last_digits": "5507",
+                    "total_spent": -84000.0,
+                    "cashback": 840.0
+                },
+                {
+                    "last_digits": "6002",
+                    "total_spent": -69200.0,
+                    "cashback": 692.0
+                },
+                {
+                    "last_digits": "5441",
+                    "total_spent": -470854.8,
+                    "cashback": 4708.55
+                }
+            ]
+        ],
+        "top_transactions": [
+            [
+                {
+                    "date": "21.03.2019",
+                    "amount": 190044.51,
+                    "category": "\u041f\u0435\u0440\u0435\u0432\u043e\u0434\u044b",
+                    "description": "\u041f\u0435\u0440\u0435\u0432\u043e\u0434 \u041a\u0440\u0435\u0434\u0438\u0442\u043d\u0430\u044f \u043a\u0430\u0440\u0442\u0430. \u0422\u041f 10.2 RUR"
+                },
+                {
+                    "date": "21.03.2019",
+                    "amount": -190044.51,
+                    "category": "\u041f\u0435\u0440\u0435\u0432\u043e\u0434\u044b",
+                    "description": "\u041f\u0435\u0440\u0435\u0432\u043e\u0434 \u041a\u0440\u0435\u0434\u0438\u0442\u043d\u0430\u044f \u043a\u0430\u0440\u0442\u0430. \u0422\u041f 10.2 RUR"
+                },
+                {
+                    "date": "28.07.2018",
+                    "amount": -179571.56,
+                    "category": "nan",
+                    "description": "\u041f\u0435\u0440\u0435\u0432\u043e\u0434 \u0441\u0440\u0435\u0434\u0441\u0442\u0432 \u0441 \u0431\u0440\u043e\u043a\u0435\u0440\u0441\u043a\u043e\u0433\u043e \u0441\u0447\u0435\u0442\u0430"
+                },
+                {
+                    "date": "27.07.2018",
+                    "amount": -179571.56,
+                    "category": "nan",
+                    "description": "\u041f\u0435\u0440\u0435\u0432\u043e\u0434 \u0441\u0440\u0435\u0434\u0441\u0442\u0432 \u0441 \u0431\u0440\u043e\u043a\u0435\u0440\u0441\u043a\u043e\u0433\u043e \u0441\u0447\u0435\u0442\u0430"
+                },
+                {
+                    "date": "27.07.2018",
+                    "amount": -179571.56,
+                    "category": "nan",
+                    "description": "\u041f\u0435\u0440\u0435\u0432\u043e\u0434 \u0441\u0440\u0435\u0434\u0441\u0442\u0432 \u0441 \u0431\u0440\u043e\u043a\u0435\u0440\u0441\u043a\u043e\u0433\u043e \u0441\u0447\u0435\u0442\u0430"
+                }
+            ]
+        ],
+        "currency_rates": [
+            {
+                "currency": "USD",
+                "price": "99.616325"
+            },
+            {
+                "currency": "EUR",
+                "price": "99.616325"
+            }
+        ],
+        "stock_prices": [
+            {
+                "stock": "AAPL",
+                "price": "228.8500"
+            },
+            {
+                "stock": "AMZN",
+                "price": "228.8500"
+            },
+            {
+                "stock": "GOOGL",
+                "price": "228.8500"
+            },
+            {
+                "stock": "MSFT",
+                "price": "228.8500"
+            },
+            {
+                "stock": "TSLA",
+                "price": "228.8500"
+            }
+        ]
+    }
+]

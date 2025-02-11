@@ -4,8 +4,8 @@ import logging
 
 import pandas as pd
 
-# from src.card_transactions import make_a_card_list, make_a_top_transaction, array_of_transactions_for_top_selection
-# from src.get_api_information import get_stock_price_from_api, getting_exchange_rates
+from src.card_transactions import make_a_card_list, make_a_top_transaction, array_of_transactions_for_top_selection
+from src.get_api_information import get_stock_price_from_api, getting_exchange_rates
 
 logger_utils = logging.getLogger(__name__)
 file_handler = logging.FileHandler(f"log/{__name__}.log", mode="a", encoding="UTF8")
@@ -74,30 +74,88 @@ def reply_to_main_page(time_now=""):
     Returns:
         dict : сдоварь, подготовленный для конвертации в ответ json
     """
-    result_xlsx = conversion_xlsx_to_object()
-    logger_utils.info(f"{result_xlsx}")
+    # result_xlsx = conversion_xlsx_to_object()
+    # logger_utils.info(f"{result_xlsx}")
 
-    json_response = {
-        "greeting": "",
-        "cards": [make_a_card_list(result_xlsx)],
-        "top_transactions": [make_a_top_transaction(array_of_transactions_for_top_selection(result_xlsx))],
-        "currency_rates": [],
-        "stock_prices": [],
-    }
-    json_response["greeting"] = user_greeting(time_now[10:])
+    # json_response = {
+    #     "greeting": "",
+    #     "cards": [make_a_card_list(result_xlsx)],
+    #     "top_transactions": [make_a_top_transaction(array_of_transactions_for_top_selection(result_xlsx))],
+    #     "currency_rates": [],
+    #     "stock_prices": [],
+    # }
+    # json_response["greeting"] = user_greeting(time_now[10:])
 
-    temp = []
-    for i, value in enumerate(conversion_json_to_object("user_settings.json")["user_currencies"]):
-        temp.append((getting_exchange_rates(value)))
+    # temp = []
+    # for i, value in enumerate(conversion_json_to_object("user_settings.json")["user_currencies"]):
+    #     temp.append((getting_exchange_rates(value)))
 
-    json_response["currency_rates"] = temp
+    # json_response["currency_rates"] = temp
 
-    temp = []
-    for i, value in enumerate(conversion_json_to_object("user_settings.json")["user_stocks"]):
-        temp.append((get_stock_price_from_api(value)))
+    # temp = []
+    # for i, value in enumerate(conversion_json_to_object("user_settings.json")["user_stocks"]):
+    #     temp.append((get_stock_price_from_api(value)))
 
-    json_response["stock_prices"] = temp
-    return [json_response]
+    # json_response["stock_prices"] = temp
+    # return [json_response]
+    return [
+        {
+            "greeting": "Добрый вечер",
+            "cards": [
+                [
+                    {"last_digits": "7197", "total_spent": -2389912.73, "cashback": 23899.13},
+                    {"last_digits": "5091", "total_spent": -17367.5, "cashback": 173.68},
+                    {"last_digits": "4556", "total_spent": -1768837.24, "cashback": 17688.37},
+                    {"last_digits": "1112", "total_spent": -46207.08, "cashback": 462.07},
+                    {"last_digits": "5507", "total_spent": -84000.0, "cashback": 840.0},
+                    {"last_digits": "6002", "total_spent": -69200.0, "cashback": 692.0},
+                    {"last_digits": "5441", "total_spent": -470854.8, "cashback": 4708.55},
+                ]
+            ],
+            "top_transactions": [
+                [
+                    {
+                        "date": "21.03.2019",
+                        "amount": 190044.51,
+                        "category": "Переводы",
+                        "description": "Перевод Кредитная карта. ТП 10.2 RUR",
+                    },
+                    {
+                        "date": "21.03.2019",
+                        "amount": -190044.51,
+                        "category": "Переводы",
+                        "description": "Перевод Кредитная карта. ТП 10.2 RUR",
+                    },
+                    {
+                        "date": "28.07.2018",
+                        "amount": -179571.56,
+                        "category": "nan",
+                        "description": "Перевод средств с брокерского счета",
+                    },
+                    {
+                        "date": "27.07.2018",
+                        "amount": -179571.56,
+                        "category": "nan",
+                        "description": "Перевод средств с брокерского счета",
+                    },
+                    {
+                        "date": "27.07.2018",
+                        "amount": -179571.56,
+                        "category": "nan",
+                        "description": "Перевод средств с брокерского счета",
+                    },
+                ]
+            ],
+            "currency_rates": [{"currency": "USD", "price": "99.616325"}, {"currency": "EUR", "price": "99.616325"}],
+            "stock_prices": [
+                {"stock": "AAPL", "price": "228.8500"},
+                {"stock": "AMZN", "price": "228.8500"},
+                {"stock": "GOOGL", "price": "228.8500"},
+                {"stock": "MSFT", "price": "228.8500"},
+                {"stock": "TSLA", "price": "228.8500"},
+            ],
+        }
+    ]
 
 
 # print(conversion_xlsx_to_object()[:10])
