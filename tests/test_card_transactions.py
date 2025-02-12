@@ -21,4 +21,5 @@ def test_array_of_transactions_for_top_selection_ok():
     }
 
 
-
+def test_array_of_transactions_for_top_selection_no_valid(return_make_a_top_transaction):
+    assert make_a_top_transaction(array_of_transactions_for_top_selection(conversion_xlsx_to_object())) == return_make_a_top_transaction

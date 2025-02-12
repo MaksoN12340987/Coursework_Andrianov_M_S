@@ -10,11 +10,10 @@ file_handler.setFormatter(file_formatter)
 logger_card_trans.addHandler(file_handler)
 logger_card_trans.setLevel(logging.INFO)
 
-from utils import conversion_xlsx_to_object
-from decoretor import decorator_for_output_to_console_file
+# from utils import conversion_xlsx_to_object
+# from decoretor import decorator_for_output_to_console_file
 
 
-@decorator_for_output_to_console_file("card.py")
 def array_of_transactions_for_top_selection(array_of_operations: list[dict] = [{}]) -> list[dict]:
     """Функция подготовки данных, для двльнейешй выборки в make_a_top_transaction
 
@@ -39,9 +38,8 @@ def array_of_transactions_for_top_selection(array_of_operations: list[dict] = [{
             pass
     logger_card_trans.info(f"{result}")
     return result
-array_of_transactions_for_top_selection(conversion_xlsx_to_object())
 
-
+# @decorator_for_output_to_console_file("card.py")
 def make_a_top_transaction(operations_list: list[dict] = [{}], number_top_elements: int = 5) -> list[dict]:
     """_summary_
 
@@ -74,6 +72,7 @@ def make_a_top_transaction(operations_list: list[dict] = [{}], number_top_elemen
             result.append(operations_list[index_largest_element])
             del operations_list[index_largest_element]
     return result
+# make_a_top_transaction(array_of_transactions_for_top_selection(conversion_xlsx_to_object()))
 
 
 def make_a_card_list(operations_list: list[dict] = [{}]) -> list[dict]:
