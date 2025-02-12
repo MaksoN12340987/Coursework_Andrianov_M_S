@@ -1,7 +1,7 @@
 from src.decoretor import decorator_for_output_to_console_file
 
 
-@decorator_for_output_to_console_file("out.py")
+@decorator_for_output_to_console_file("log/out.log")
 def function_decorator_testing_to_file():
     return [
         {
@@ -38,7 +38,7 @@ def function_decorator_testing_to_console():
 def test_function_decorator_testing_to_file_stdout(capsys):
     function_decorator_testing_to_file()
     captured = capsys.readouterr()
-    assert captured.out == """I output the result of the work to a file: "out.py"\n"""
+    assert captured.out == """I output the result of the work to a file: "log/out.log"\n"""
 
 
 def test_function_decorator_testing_to_console(capsys):
