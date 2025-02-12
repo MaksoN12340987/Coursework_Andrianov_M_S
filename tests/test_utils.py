@@ -1,6 +1,6 @@
 import pytest
 
-from src.utils import dataframe_from_file, conversion_json_to_object, conversion_xlsx_to_object, user_greeting
+from src.utils import conversion_json_to_object, conversion_xlsx_to_object, dataframe_from_file, user_greeting
 
 
 def test_ataframe_from_file_ok():

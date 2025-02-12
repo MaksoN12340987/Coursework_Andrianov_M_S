@@ -47,7 +47,6 @@ def get_stock_price_from_api(
 
         logger_get_api.info(f"OUTPUT DATA:\n{temp}\n")
         keys_fime_series = list(temp["Time Series (60min)"])
-
         return {"stock": user_stocks, "price": temp["Time Series (60min)"][keys_fime_series[0]]["4. close"]}
 
     except Exception:

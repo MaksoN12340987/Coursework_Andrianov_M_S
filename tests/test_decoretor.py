@@ -1,4 +1,3 @@
-import sys
 from src.decoretor import decorator_for_output_to_console_file
 
 

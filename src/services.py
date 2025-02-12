@@ -1,7 +1,5 @@
 # Additional services module
-def favorable_categories_increased_cashback(
-    bank_operations: list[dict] = [], reversed: bool = True, coll: int = 3
-) -> list:
+def favorable_categories_increased_cashback(bank_operations: list[dict] = [], coll: int = 3) -> dict:
     out = {}
     result = {}
 
@@ -14,7 +12,7 @@ def favorable_categories_increased_cashback(
                 sum_operation += comparison_meaning["Бонусы (включая кэшбэк)"]
                 out[name_category] = sum_operation
 
-    time = {k: v for k, v in sorted(out.items(), key=lambda item: item[1], reverse=reversed)}
+    time = {k: v for k, v in sorted(out.items(), key=lambda item: item[1], reverse=True)}
     for i, value in enumerate(time):
         if i < coll:
             result[value] = time[value]

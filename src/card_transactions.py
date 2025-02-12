@@ -2,7 +2,7 @@
 import logging
 
 logger_card_trans = logging.getLogger("card_transactions")
-file_handler = logging.FileHandler("log/card_transactions.log", mode="a", encoding="UTF8")
+file_handler = logging.FileHandler("log/card_transactions.log", mode="w", encoding="UTF8")
 file_formatter = logging.Formatter(
     "\n%(asctime)s %(levelname)s %(name)s %(funcName)s %(lineno)d: \n%(message)s", datefmt="%H:%M:%S %d-%m-%Y"
 )
@@ -10,37 +10,8 @@ file_handler.setFormatter(file_formatter)
 logger_card_trans.addHandler(file_handler)
 logger_card_trans.setLevel(logging.INFO)
 
-# from utils import conversion_xlsx_to_object
-# from decoretor import decorator_for_output_to_console_file
 
-
-def array_of_transactions_for_top_selection(array_of_operations: list[dict] = [{}]) -> list[dict]:
-    """Функция подготовки данных, для двльнейешй выборки в make_a_top_transaction
-
-    Args:
-        array_of_operations (list[dict], optional): _description_. Defaults to [{}].
-
-    Returns:
-        list[dict]: _description_
-    """
-    result = []
-    for i, value in enumerate(array_of_operations):
-        try:
-            result.append(
-                {
-                    "date": str(value["Дата платежа"]),
-                    "amount": value["Сумма операции"],
-                    "category": str(value["Категория"]),
-                    "description": str(value["Описание"]),
-                }
-            )
-        except Exception:
-            pass
-    logger_card_trans.info(f"{result}")
-    return result
-
-# @decorator_for_output_to_console_file("card.py")
-def make_a_top_transaction(operations_list: list[dict] = [{}], number_top_elements: int = 5) -> list[dict]:
+def make_a_top_transaction(operations_list=[{}], number_top_elements=5):
     """_summary_
 
     Args:
@@ -54,14 +25,14 @@ def make_a_top_transaction(operations_list: list[dict] = [{}], number_top_elemen
     items_amount = 0.00
 
     for index, value in enumerate(operations_list):
-        items_amount = value["amount"]
+        items_amount = value["Сумма платежа"]
         if items_amount < 0:
             items_amount = items_amount * -1
 
         if len(result) != number_top_elements:
             for i, comparison_meaning in enumerate(operations_list):
 
-                comparison = comparison_meaning["amount"]
+                comparison = comparison_meaning["Сумма платежа"]
                 if comparison < 0:
                     comparison = comparison * -1
 
@@ -69,13 +40,20 @@ def make_a_top_transaction(operations_list: list[dict] = [{}], number_top_elemen
                     items_amount = comparison
                     index_largest_element = i
 
-            result.append(operations_list[index_largest_element])
+            # result.append(operations_list[index_largest_element])
+            result.append(
+                {
+                    "date": str(operations_list[index_largest_element]["Дата платежа"]),
+                    "amount": operations_list[index_largest_element]["Сумма операции"],
+                    "category": str(operations_list[index_largest_element]["Категория"]),
+                    "description": str(operations_list[index_largest_element]["Описание"]),
+                }
+            )
             del operations_list[index_largest_element]
     return result
-# make_a_top_transaction(array_of_transactions_for_top_selection(conversion_xlsx_to_object()))
 
 
-def make_a_card_list(operations_list: list[dict] = [{}]) -> list[dict]:
+def make_a_card_list(operations_list=[{}]):
     """_summary_
 
     Args:
