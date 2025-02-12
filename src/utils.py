@@ -4,11 +4,11 @@ import logging
 
 import pandas as pd
 
-from src.card_transactions import array_of_transactions_for_top_selection, make_a_card_list, make_a_top_transaction
-from src.get_api_information import get_stock_price_from_api, getting_exchange_rates
+# from src.card_transactions import array_of_transactions_for_top_selection, make_a_card_list, make_a_top_transaction
+# from src.get_api_information import get_stock_price_from_api, getting_exchange_rates
 
 
-from src.decoretor import decorator_for_output_to_console_file
+# from src.decoretor import decorator_for_output_to_console_file
 
 
 logger_utils = logging.getLogger(__name__)
@@ -21,7 +21,7 @@ logger_utils.addHandler(file_handler)
 logger_utils.setLevel(logging.INFO)
 
 
-# @decorator_for_output_to_console_file("out.py")
+# @decorator_for_output_to_console_file()
 def dataframe_from_file(file_name: str = "data/operations.xlsx") -> pd.DataFrame:
     try:
         with open(file_name, "rb") as f:
@@ -29,6 +29,9 @@ def dataframe_from_file(file_name: str = "data/operations.xlsx") -> pd.DataFrame
 
     except Exception:
         raise Exception(f"Exceptional error")
+
+
+# dataframe_from_file()
 
 
 def conversion_xlsx_to_object(file_name: str = "data/operations.xlsx") -> list:

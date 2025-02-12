@@ -1,6 +1,6 @@
 import pytest
 
-from src.card_transactions import array_of_transactions_for_top_selection
+from src.card_transactions import array_of_transactions_for_top_selection, make_a_top_transaction, make_a_card_list
 from src.utils import conversion_xlsx_to_object
 
 
@@ -19,3 +19,6 @@ def test_array_of_transactions_for_top_selection_ok():
         "category": "Супермаркеты",
         "description": "Колхоз",
     }
+
+
+

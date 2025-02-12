@@ -10,8 +10,20 @@ file_handler.setFormatter(file_formatter)
 logger_card_trans.addHandler(file_handler)
 logger_card_trans.setLevel(logging.INFO)
 
+from utils import conversion_xlsx_to_object
+from decoretor import decorator_for_output_to_console_file
 
+
+@decorator_for_output_to_console_file("card.py")
 def array_of_transactions_for_top_selection(array_of_operations: list[dict] = [{}]) -> list[dict]:
+    """Функция подготовки данных, для двльнейешй выборки в make_a_top_transaction
+
+    Args:
+        array_of_operations (list[dict], optional): _description_. Defaults to [{}].
+
+    Returns:
+        list[dict]: _description_
+    """
     result = []
     for i, value in enumerate(array_of_operations):
         try:
@@ -27,9 +39,19 @@ def array_of_transactions_for_top_selection(array_of_operations: list[dict] = [{
             pass
     logger_card_trans.info(f"{result}")
     return result
+array_of_transactions_for_top_selection(conversion_xlsx_to_object())
 
 
 def make_a_top_transaction(operations_list: list[dict] = [{}], number_top_elements: int = 5) -> list[dict]:
+    """_summary_
+
+    Args:
+        operations_list (list[dict], optional): _description_. Defaults to [{}].
+        number_top_elements (int, optional): _description_. Defaults to 5.
+
+    Returns:
+        list[dict]: _description_
+    """
     result = []
     items_amount = 0.00
 
@@ -39,7 +61,6 @@ def make_a_top_transaction(operations_list: list[dict] = [{}], number_top_elemen
             items_amount = items_amount * -1
 
         if len(result) != number_top_elements:
-
             for i, comparison_meaning in enumerate(operations_list):
 
                 comparison = comparison_meaning["amount"]
@@ -52,11 +73,18 @@ def make_a_top_transaction(operations_list: list[dict] = [{}], number_top_elemen
 
             result.append(operations_list[index_largest_element])
             del operations_list[index_largest_element]
-
     return result
 
 
 def make_a_card_list(operations_list: list[dict] = [{}]) -> list[dict]:
+    """_summary_
+
+    Args:
+        operations_list (list[dict], optional): _description_. Defaults to [{}].
+
+    Returns:
+        list[dict]: _description_
+    """
     result = []
     out = {}
 
